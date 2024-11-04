@@ -1,16 +1,22 @@
 import os
 
+from db import db
+
 import discord
-from discord import app_commands
+from discord.ext import commands
 
-monkey = discord.Client(intents=discord.Intents.all())
+import cogs.handlers, cogs.economy
 
-for filename in os.listdir("./cogs"):
-    if filename.endswith('.py'):
-        monkey.load_extension(f"cogs.{filename[:-3]}")
+db = db()
+monkey = commands.Bot(command_prefix=".", intents=discord.Intents.all())
 
 @monkey.event
 async def on_ready():
+    await cogs.handlers.setup(monkey, db)
+    await cogs.economy.setup(monkey, db)
+
+    await monkey.tree.sync()
+
     print("ooga booga")
 
 monkey.run(os.environ["token"])
