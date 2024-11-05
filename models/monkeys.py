@@ -42,10 +42,11 @@ class Monkeys:
         for chance in chances:
             self.options.append(chance[0])
             self.weights.append(chance[1])
+
+    def random_monkey (self):
+        return random.choices(self.options, self.weights, k=1)[0]
     
-    def new_monkey (self):
-        type = random.choices(self.options, self.weights, k=1)[0]
-    
+    def new_monkey (self, type):
         health = self.monkeys[type]["health"] + int((random.randint(-50, 50) / 100) * self.monkeys[type]["health"])
         damage = self.monkeys[type]["damage"] + int((random.randint(-50, 50) / 100) * self.monkeys[type]["damage"])
 
