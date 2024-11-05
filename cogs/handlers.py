@@ -1,6 +1,24 @@
 import random
 
+import discord
 from discord.ext import commands
+
+class spawnViews(discord.ui.View):
+    def __init__(self, db, id):
+        super().__init__()
+        self.db = db
+        self.id = id
+        self.caught = False
+
+    @discord.ui.button(label="Catch", style=discord.ButtonStyle.green)
+    async def catch(self, interaction: discord.Interaction, button: discord.ui.Button):
+        if not self.caught:
+            self.caught = True
+            button.disabled = True
+            self.db.add_monkey(interaction.user.id, self.id)
+
+            await interaction.response.send_message(f"{interaction.user.mention} caught it!")
+            await interaction.response.edit_message(view=self)
 
 class Handlers(commands.Cog):
     def __init__(self, bot, db, monkeys):
@@ -34,11 +52,11 @@ class Handlers(commands.Cog):
             else:
                 self.db.cache["chanels"][c_id] += 1
 
-            spawn = random.randint(1, 300)    
+            spawn = random.randint(1, 2)    
             if spawn <= self.db.cache["chanels"][c_id]:
                 self.db.cache["chanels"][c_id] = 0
                 m_id = self.monkeys.new_monkey()
-                await message.channel.send(f"monkey spawn here {m_id}")
+                await message.channel.send(f"monkey spawn here {m_id}", view=spawnViews(self.db, m_id))
 
 async def setup(bot, db, monkeys):
     await bot.add_cog(Handlers(bot, db, monkeys))

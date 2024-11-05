@@ -37,9 +37,26 @@ class db:
         self.conn.commit()
 
     def new_monkey (self, type: str, health: int, damage: int):
-        self.cur.execute("INSERT INTO monkeys (type, health, damage) VALUES (%s, %s, %s)", (type, health, damage))
-
-        monkey_id = self.cur.fetchone()[0]
+        self.cur.execute("INSERT INTO monkeys (type, health, attack, name) VALUES (%s, %s, %s, %s)", (type, health, damage, "kitty"))
 
         self.conn.commit()
-        return monkey_id
+
+        self.cur.execute("SELECT last_value FROM monkeys_id_seq")
+        id = self.cur.fetchone()[0]
+
+        return id
+
+    def add_monkey (self, id: str, monkey_id: int):
+        self.cur.execute("UPDATE users SET monkeys = array_append(monkeys, %s) WHERE id = %s", (monkey_id, str(id)))
+
+        self.conn.commit()
+
+    def get_monkeys (self, id: str):
+        self.cur.execute("SELECT monkeys FROM users WHERE id = %s", (str(id),))
+
+        return self.cur.fetchone()[0]
+
+    def get_monkey (self, id: str):
+        self.cur.execute("SELECT * FROM monkeys WHERE id = %s", (str(id),))
+
+        return self.cur.fetchone()
