@@ -17,11 +17,11 @@ class spawnViews(discord.ui.View):
             self.caught = True
             button.disabled = True
 
-            id = self.monkeys.new_monkey(self.type)
+            id = self.monkeys.new_monkey(self.type, interaction.guild.name)
             self.db.add_monkey(interaction.user.id, id)
 
-            await interaction.response.send_message(f"{interaction.user.mention} caught it!")
             await interaction.message.edit(view=self)
+            await interaction.response.send_message(f"{interaction.user.mention} caught it!")
 
 class Handlers(commands.Cog):
     def __init__(self, bot, db, monkeys):

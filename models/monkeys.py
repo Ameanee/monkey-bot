@@ -46,8 +46,8 @@ class Monkeys:
     def random_monkey (self):
         return random.choices(self.options, self.weights, k=1)[0]
     
-    def new_monkey (self, type):
+    def new_monkey (self, type, id: str):
         health = self.monkeys[type]["health"] + int((random.randint(-50, 50) / 100) * self.monkeys[type]["health"])
         damage = self.monkeys[type]["damage"] + int((random.randint(-50, 50) / 100) * self.monkeys[type]["damage"])
 
-        return self.db.new_monkey(type, health, damage)
+        return self.db.new_monkey(type, health, damage, id)

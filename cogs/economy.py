@@ -1,5 +1,3 @@
-import random
-
 import discord
 from discord import app_commands
 from discord.ext import commands
@@ -8,6 +6,23 @@ class Economy(commands.Cog):
     def __init__(self, bot, db):
         self.monkey = bot
         self.db = db
+
+    lookup = app_commands.Group(name="lookup", description="hot girls near me!")
+
+    @lookup.command(name="monkey", description="robloxtrading.com")
+    async def lookup_monkey(self, interaction: discord.Interaction, id: str):
+        monkey = self.db.get_monkey(id)
+
+        if monkey is None:
+            await interaction.response.send_message("monkey not found")
+            return
+            
+        embed = discord.Embed(title=f"{monkey[1]} `#{id}`")
+        embed.add_field(name="Health", value=f"{monkey[2]}/{monkey[2]} :heart:")
+        embed.add_field(name="Damage", value=f"{monkey[3]} :crossed_swords:")
+        embed.add_field(name="Origin", value=f"<t:{monkey[6]}> in {monkey[5]}", inline=False)
+        
+        await interaction.response.send_message(embed=embed)
 
     @app_commands.command(name="balance", description="\"My pants your house rent\" -Polo G")
     async def balance(self, interaction: discord.Interaction, user: discord.User = None):
@@ -51,8 +66,8 @@ class Economy(commands.Cog):
         
         embed = discord.Embed(title=f"{user.display_name}'s monkeys", color=0x00ff00)
         for m_id in collection:
+            print(m_id)
             monkey = self.db.get_monkey(m_id)
-            print(monkey)
             embed.add_field(name=monkey[1], value=f"**{monkey[2]} :heart:**\n**{monkey[3]} :crossed_swords:**")
 
         await interaction.response.send_message(user.mention, embed=embed)

@@ -1,6 +1,6 @@
 import os
+import time
 import psycopg2
-
 
 class db:
     def __init__ (self):
@@ -36,11 +36,11 @@ class db:
 
         self.conn.commit()
 
-    def new_monkey (self, type: str, health: int, damage: int):
-        self.cur.execute("INSERT INTO monkeys (type, health, attack, name) VALUES (%s, %s, %s, %s)", (type, health, damage, "kitty"))
+    def new_monkey (self, type: str, health: int, damage: int, id: str):
+        self.cur.execute("INSERT INTO monkeys (type, health, base_health, attack, discovery_id, discovery_date) VALUES (%s, %s, %s, %s, %s)", (type, health, health, damage, id, int(time.time())))
 
         self.conn.commit()
-
+  
         self.cur.execute("SELECT last_value FROM monkeys_id_seq")
         id = self.cur.fetchone()[0]
 
