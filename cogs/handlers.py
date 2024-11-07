@@ -29,14 +29,6 @@ class Handlers(commands.Cog):
         self.monkey = bot
         self.db = db
 
-    # @commands.Cog.listener("on_message")
-    # async def on_message(self, message):
-        # if message.author.bot:
-            # return
-
-        # await self.on_message_money(message)
-        # await self.on_message_spawn(message)
-
     @commands.Cog.listener("on_message")
     async def on_message_money(self, message):
         if len(message.content) >= 3 and message.author.id != self.monkey.user.id:    

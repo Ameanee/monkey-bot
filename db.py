@@ -27,7 +27,7 @@ class db:
         return self.cur.fetchone() is not None
 
     def new_user (self, id: str):
-        self.cur.execute("INSERT INTO users (id, money, monkeys, inventory) VALUES (%s, %s, %s, %s)", (str(id), 100, [], []))
+        self.cur.execute("INSERT INTO users (id, money, monkeys, inventory, lineup) VALUES (%s, %s, %s, %s, %s)", (str(id), 100, [], []))
 
         self.conn.commit()
 
@@ -51,6 +51,11 @@ class db:
 
         self.conn.commit()
 
+    def remove_monkey (self, id: str, monkey_id: int):
+        self.cur.execute("UPDATE users SET monkeys = array_remove(monkeys, %s) WHERE id = %s", (monkey_id, str(id)))
+
+        self.conn.commit()
+    
     def get_monkeys (self, id: str):
         self.cur.execute("SELECT monkeys FROM users WHERE id = %s", (str(id),))
 
