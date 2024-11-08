@@ -16,7 +16,7 @@ class tradeViews (discord.ui.View):
         self.done = False
 
     @discord.ui.button(label="Accept", style=discord.ButtonStyle.green)
-    async def accept(self, interaction: discord.Interaction, button: discord.ui.Button):
+    async def accept(self, interaction: discord.Interaction, button: discord.ui.Button): # must add exploit preventer later
         if not self.done and interaction.user.id == self.them.id:
             self.done = True
         
@@ -29,9 +29,7 @@ class tradeViews (discord.ui.View):
     
             for monkey in self.ask_monkeys:
                 self.db.add_monkey(self.me.id, monkey)
-                self.db.remove_monkey(self.them.id, monkey)
-
-            
+                self.db.remove_monkey(self.them.id, monkey)        
     
     @discord.ui.button(label="Decline", style=discord.ButtonStyle.red)
     async def decline(self, interaction: discord.Interaction, button: discord.ui.Button):

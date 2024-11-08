@@ -46,6 +46,46 @@ class Monkeys:
                 "rarity": "uncommon",
                 "description": "pulled over and shot, like damn"
             },
+            "cyborg monkey": {
+                "health": 250,
+                "damage": 125,
+                "ability": [1],
+                "rarity": "rare",
+                "description": "elon musk vision!"
+            },
+            "albino cyborg monkey": {
+                "health": 500,
+                "damage": 250,
+                "ability": [0, 1],
+                "rarity": "rare",
+                "description": "elon musk vision!"
+            },
+            "dj monkey": {
+                "health": 200,
+                "damage": 0,
+                "ability": [2],
+                "rarity": "rare",
+                "description": "metro boomin be boomin"
+            },
+            "albino dj monkey": {
+                "health": 400,
+                "damage": 0,
+                "ability": [0, 2],
+                "rarity": "rare",
+                "description": "eminem?"
+            },
+            "ninja monkey": {
+                "health": 150,
+                "damage": 100,
+                "ability": [3],
+                "rarity": "rare"
+            },
+            "albino ninja monkey": {
+                "health": 300,
+                "damage": 200,
+                "ability": [0, 3],
+                "rarity": "rare"
+            },
             "gorilla": {
                 "health": 1000,
                 "damage": 500,
@@ -68,14 +108,37 @@ class Monkeys:
                 "description": "Deal double damage against non-albino monkeys",
                 "type": "modifier",
                 "mult": 1,
-                "works": "non-albino"
+                "works": "non-albino",
+                "atk_type": "physical",
+                "cooldown": 0
+            },
+            {
+                "name": "Mechanical",
+                "description": "Physical attacks deal 50% less damage or 50 less damage depending on which is smaller",
+                "type": "defense",
+                "cooldown": 0
+            },
+            {
+                "name": "Dancin",
+                "description": "Makes another monkey dance for 3 rounds (paralyze them)",
+                "type": "stun",
+                "cooldown": 2
+            },
+            {
+                "name": "Sneaky",
+                "description": "Has a 30% of dodging all attacks",
+                "type": "dodge",
+                "cooldown": 0
             }
         ]
         
         chances = [
-            ["basic monkey", 0.59],
-            ["army monkey", 0.2],
-            ["hood monkey", 0.2],
+            ["basic monkey", 0.5],
+            ["army monkey", 0.16],
+            ["hood monkey", 0.16],
+            ["cyborg monkey", 0.075],
+            ["dj monkey", 0.075],
+            ["ninja monkey", 0.075],
             ["gorilla", 0.01]
         ]
         
