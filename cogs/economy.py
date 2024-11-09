@@ -129,7 +129,7 @@ class Economy(commands.Cog):
                 return
 
             m = self.db.get_monkey(monkey)
-            their_string += f"\n**{m[1]}** `#{monkey}`\n{m[2]}/{m[2]} :heart: {m[3]} :crossed_swords:"
+            their_string += f"\n**{m[1]}** `#{monkey}`\n{m[2]}/{m[7]} :heart: {m[3]} :crossed_swords:"
         
         embed = discord.Embed(title="Trade offer")
         embed.add_field(name=f"{user.display_name} Gets", value=my_string)
@@ -151,7 +151,8 @@ class Economy(commands.Cog):
         for m_id in collection:
             print(m_id)
             monkey = self.db.get_monkey(m_id)
-            embed.add_field(name=monkey[1], value=f"**{monkey[2]} :heart:**\n**{monkey[3]} :crossed_swords:**")
+            print(monkey)
+            embed.add_field(name=monkey[1], value=f"**{monkey[2]}/{monkey[7]} :heart:**\n**{monkey[3]} :crossed_swords:**")
 
         await interaction.response.send_message(user.mention, embed=embed)
 

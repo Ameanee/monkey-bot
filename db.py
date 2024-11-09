@@ -27,7 +27,7 @@ class db:
         return self.cur.fetchone() is not None
 
     def new_user (self, id: str):
-        self.cur.execute("INSERT INTO users (id, money, monkeys, inventory, lineup) VALUES (%s, %s, %s, %s, %s)", (str(id), 100, [], []))
+        self.cur.execute("INSERT INTO users (id, money, monkeys, inventory, lineup) VALUES (%s, %s, %s, %s, %s)", (str(id), 100, [], [], []))
 
         self.conn.commit()
 
@@ -37,7 +37,7 @@ class db:
         self.conn.commit()
 
     def new_monkey (self, type: str, health: int, damage: int, id: str):
-        self.cur.execute("INSERT INTO monkeys (type, health, base_health, attack, discovery_id, discovery_date) VALUES (%s, %s, %s, %s, %s)", (type, health, health, damage, id, int(time.time())))
+        self.cur.execute("INSERT INTO monkeys (type, health, base_health, attack, discovery_id, discovery_date) VALUES (%s, %s, %s, %s, %s, %s)", (type, health, health, damage, id, int(time.time())))
 
         self.conn.commit()
   
@@ -62,6 +62,6 @@ class db:
         return self.cur.fetchone()[0]
 
     def get_monkey (self, id: str):
-        self.cur.execute("SELECT * FROM monkeys WHERE id = %s", (str(id),))
-
+        self.cur.execute("SELECT * FROM monkeys WHERE id = %s", (str(id),)) 
+        # (None, 'cyborg monkey', 200, 75, 2, "🐈's server", 1731113365, 200)
         return self.cur.fetchone()
