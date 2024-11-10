@@ -33,7 +33,7 @@ class tradeViews (discord.ui.View):
     
     @discord.ui.button(label="Decline", style=discord.ButtonStyle.red)
     async def decline(self, interaction: discord.Interaction, button: discord.ui.Button):
-        if not self.done and interaction.user.id == self.them.id:
+        if not self.done and (interaction.user.id == self.them.id or interaction.user.id == self.me.id):
             self.done = True
             
             for item in self.children:
@@ -149,10 +149,8 @@ class Economy(commands.Cog):
         
         embed = discord.Embed(title=f"{user.display_name}'s monkeys", color=0x00ff00)
         for m_id in collection:
-            print(m_id)
             monkey = self.db.get_monkey(m_id)
-            print(monkey)
-            embed.add_field(name=monkey[1], value=f"**{monkey[2]}/{monkey[7]} :heart:**\n**{monkey[3]} :crossed_swords:**")
+            embed.add_field(name=f"{monkey[1]} `#{m_id}`", value=f"**{monkey[2]}/{monkey[7]} :heart:**\n**{monkey[3]} :crossed_swords:**")
 
         await interaction.response.send_message(user.mention, embed=embed)
 

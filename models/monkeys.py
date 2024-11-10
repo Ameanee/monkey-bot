@@ -78,13 +78,29 @@ class Monkeys:
                 "health": 150,
                 "damage": 100,
                 "ability": [3],
-                "rarity": "rare"
+                "rarity": "rare",
+                "descripton": "ninja turtle"
             },
             "albino ninja monkey": {
                 "health": 300,
                 "damage": 200,
                 "ability": [0, 3],
-                "rarity": "rare"
+                "rarity": "rare",
+                "description": "does it cancel out?"
+            },
+            "wizard monkey": {
+                "health": 200,
+                "damage": 100,
+                "ability": [],
+                "rarity": "rare",
+                "description": "magik!"
+            },
+            "albino wizard monkey": {
+                "health": 400,
+                "damage": 200,
+                "ability": [0],
+                "rarity": "rare",
+                "descripton": "24k magik!"
             },
             "gorilla": {
                 "health": 1000,
