@@ -43,11 +43,13 @@ class tradeViews (discord.ui.View):
             await interaction.message.edit(embed=self.embed, view=self)
 
 class Economy(commands.Cog):
-    def __init__(self, bot, db):
+    def __init__(self, bot, db, monkeys):
         self.monkey = bot
         self.db = db
+        self.monkeys = monkeys
 
     lookup = app_commands.Group(name="lookup", description="hot girls near me!")
+    sell = app_commands.Group(name="sell", description="sell your stuff!")
 
     @lookup.command(name="monkey", description="robloxtrading.com")
     async def lookup_monkey(self, interaction: discord.Interaction, id: str):
@@ -63,6 +65,20 @@ class Economy(commands.Cog):
         embed.add_field(name="Origin", value=f"<t:{monkey[6]}> in {monkey[5]}", inline=False)
         
         await interaction.response.send_message(embed=embed)
+
+    @sell.command(name="monkey", description="lincoln legacy")
+    async def sell_monkey(self, interaction: discord.Interaction, id: int):
+        if not self.db.is_user(interaction.user.id):
+            self.db.new_user(interaction.user.id)
+
+        if id not in self.db.get_monkeys(interaction.user.id):
+            await interaction.response.send_message("your dad!")
+            return
+
+        type = self.monkeys.monkeys[self.db.get_monkey(id)[1]]["rarity"]
+        self.db.remove_monkey(interaction.user.id, id, True)
+        self.db.add_money(interaction.user.id, self.monkeys.prices[type])
+        await interaction.response.send_message(f"sold for {self.monkeys.prices[type]}!")  
 
     @app_commands.command(name="balance", description="\"My pants your house rent\" -Polo G")
     async def balance(self, interaction: discord.Interaction, user: discord.User = None):
@@ -154,5 +170,5 @@ class Economy(commands.Cog):
 
         await interaction.response.send_message(user.mention, embed=embed)
 
-async def setup(bot, db):
-    await bot.add_cog(Economy(bot, db))
+async def setup(bot, db, monkeys):
+    await bot.add_cog(Economy(bot, db, monkeys))

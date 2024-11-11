@@ -51,8 +51,11 @@ class db:
 
         self.conn.commit()
 
-    def remove_monkey (self, id: str, monkey_id: int):
+    def remove_monkey (self, id: str, monkey_id: int, perm: bool = False):
         self.cur.execute("UPDATE users SET monkeys = array_remove(monkeys, %s) WHERE id = %s", (monkey_id, str(id)))
+
+        if perm:
+            self.cur.execute("DELETE FROM monkeys WHERE id = %s", (monkey_id,))
 
         self.conn.commit()
     

@@ -14,7 +14,7 @@ monkey = commands.Bot(command_prefix=".", intents=discord.Intents.all())
 @monkey.event
 async def on_ready():
     await cogs.handlers.setup(monkey, db, models.monkeys.Monkeys(db))
-    await cogs.economy.setup(monkey, db)
+    await cogs.economy.setup(monkey, db, models.monkeys.Monkeys(db))
 
     await monkey.tree.sync()
 

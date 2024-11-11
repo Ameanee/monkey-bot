@@ -3,6 +3,11 @@ import random
 class Monkeys:
     def __init__ (self, db):
         self.db = db
+        self.prices = {
+            "common": 10,
+            "rare": 50,
+            "legendary": 1000
+        }
         self.monkeys = {
             "basic monkey": {
                 "health": 100,
