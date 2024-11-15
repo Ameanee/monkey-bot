@@ -29,7 +29,10 @@ class tradeViews (discord.ui.View):
     
             for monkey in self.ask_monkeys:
                 self.db.add_monkey(self.me.id, monkey)
-                self.db.remove_monkey(self.them.id, monkey)        
+                self.db.remove_monkey(self.them.id, monkey)    
+
+            self.embed.color = 0x00FF00
+            await interaction.response.edit_message(embed=self.embed, view=None)
     
     @discord.ui.button(label="Decline", style=discord.ButtonStyle.red)
     async def decline(self, interaction: discord.Interaction, button: discord.ui.Button):

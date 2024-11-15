@@ -155,11 +155,12 @@ class Monkeys:
         
         chances = [
             ["basic monkey", 0.5],
-            ["army monkey", 0.16],
-            ["hood monkey", 0.16],
-            ["cyborg monkey", 0.075],
-            ["dj monkey", 0.075],
-            ["ninja monkey", 0.075],
+            ["army monkey", 0.12],
+            ["hood monkey", 0.12],
+            ["cyborg monkey", 0.0625],
+            ["dj monkey", 0.0625],
+            ["ninja monkey", 0.0625],
+            ["wizard monkey", 0.0625],
             ["gorilla", 0.01]
         ]
         
