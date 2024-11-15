@@ -46,10 +46,11 @@ class tradeViews (discord.ui.View):
             await interaction.message.edit(embed=self.embed, view=self)
 
 class Economy(commands.Cog):
-    def __init__(self, bot, db, monkeys):
+    def __init__(self, bot, db, monkeys, items):
         self.monkey = bot
         self.db = db
         self.monkeys = monkeys
+        self.items = items
 
     lookup = app_commands.Group(name="lookup", description="hot girls near me!")
     sell = app_commands.Group(name="sell", description="sell your stuff!")
@@ -173,5 +174,14 @@ class Economy(commands.Cog):
 
         await interaction.response.send_message(user.mention, embed=embed)
 
-async def setup(bot, db, monkeys):
-    await bot.add_cog(Economy(bot, db, monkeys))
+    @app_commands.command(name="shop", description="trade!")
+    async def shop (self, interaction: discord.Interaction):
+        embed = discord.Embed(title="Shop", color=0x00ff00)
+        for i in self.items.shop.keys():
+            item = self.items.shop[i]
+            embed.add_field(name=f"{i} - ${item['price']}", value=item['description'])
+        
+        await interaction.response.send_message(embed=embed)
+
+async def setup(bot, db, monkeys, items):
+    await bot.add_cog(Economy(bot, db, monkeys, items))
